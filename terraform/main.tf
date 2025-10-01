@@ -44,11 +44,6 @@ resource "aws_instance" "node-app" {
   }
 }
 
-variable "key_name" {
-  description = "Name of existing EC2 key pair"
-  type        = string
-}
-
 output "public_ip" {
   value = aws_instance.node_app.public_ip
 }
