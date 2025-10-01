@@ -1,0 +1,9 @@
+---
+- name: Setup Node.js service
+  hosts: webservers
+  become: yes
+  roles:
+    - ssh
+    - base
+    - node
+    - app

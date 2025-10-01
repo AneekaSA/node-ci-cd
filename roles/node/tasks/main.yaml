@@ -1,0 +1,7 @@
+---
+- name: Install Node.js and npm (Amazon Linux)
+  shell: |
+    curl -sL https://rpm.nodesource.com/setup_18.x | bash -
+    yum install -y nodejs
+  args:
+    executable: /bin/bash

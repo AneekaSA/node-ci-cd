@@ -37,6 +37,7 @@ resource "aws_instance" "node-app" {
   ami           = "ami-08982f1c5bf93d976"
   instance_type = "t2.micro"
   key_name = var.key_name
+  associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   tags = {
@@ -45,5 +46,5 @@ resource "aws_instance" "node-app" {
 }
 
 output "public_ip" {
-  value = aws_instance.node_app.public_ip
+  value = aws_instance.node-app.public_ip
 }

@@ -1,0 +1,8 @@
+---
+- name: Update package cache and install git
+  yum:
+    name:
+      - git
+      - python3    # ansible modules sometimes need python
+    state: present
+    update_cache: yes

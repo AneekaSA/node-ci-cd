@@ -1,0 +1,13 @@
+---
+- name: Ensure .ssh exists
+  file:
+    path: /home/ec2-user/.ssh
+    state: directory
+    owner: ec2-user
+    mode: '0700'
+
+- name: Add public key to authorized_keys
+  authorized_key:
+    user: ec2-user
+    state: present
+    key: "{{ lookup('file', '~/.ssh/newest-key.pub') }}"

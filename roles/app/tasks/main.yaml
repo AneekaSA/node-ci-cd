@@ -1,0 +1,24 @@
+---
+- name: Clone repo
+  git:
+    repo: "https://github.com/AneekaSA/node-ci-cd.git"
+    dest: /home/ec2-user/node-service
+    version: main
+    update: yes
+  become: yes
+  become_user: ec2-user
+
+- name: Install npm dependencies
+  command: npm install
+  args:
+    chdir: /home/ec2-user/node-service
+  become: yes
+  become_user: ec2-user
+
+- name: Start app with nohup
+  shell: |
+    pkill node || true
+    nohup node /home/ec2-user/node-service/index.js > /home/ec2-user/node-service/app.log 2>&1 &
+  args:
+    executable: /bin/bash
+  become: yes
