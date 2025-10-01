@@ -1,0 +1,62 @@
+name: Deploy Node Service via SSH
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ec2-user || mkdir -p /home/ec2-user
+            if [ -d "/home/ec2-user/node-service" ]; then
+              cd /home/ec2-user/node-service
+              git pull origin main
+            else
+              git clone https://github.com/<your-username>/node-service.git /home/ec2-user/node-service
+              cd /home/ec2-user/node-service
+            fi
+            npm install
+            pkill node || true
+            nohup node index.js > /home/ec2-user/node-service/app.log 2>&1 &
+name: Deploy Node Service via SSH
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ec2-user || mkdir -p /home/ec2-user
+            if [ -d "/home/ec2-user/node-service" ]; then
+              cd /home/ec2-user/node-service
+              git pull origin main
+            else
+              git clone https://github.com/<your-username>/node-service.git /home/ec2-user/node-service
+              cd /home/ec2-user/node-service
+            fi
+            npm install
+            pkill node || true
+            nohup node index.js > /home/ec2-user/node-service/app.log 2>&1 &
