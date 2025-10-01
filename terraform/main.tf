@@ -37,7 +37,7 @@ resource "aws_instance" "node-app" {
   ami           = "ami-08982f1c5bf93d976"
   instance_type = "t2.micro"
   key_name = var.key_name
-  vpc_security_group_ids = [aws_security_group.allow_http_ssh.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   tags = {
     Name = "HelloWorld"
